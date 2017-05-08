@@ -14,10 +14,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dschnelldavis/angular2-json-schema-form"
+    "url": "https://github.com/bss-taiphung/angular2-json-schema-form"
   },
   "bugs": {
-    "url": "https://github.com/dschnelldavis/angular2-json-schema-form/issues"
+    "url": "https://github.com/bss-taiphung/angular2-json-schema-form/issues"
   },
   "files": [
     "dist/",
