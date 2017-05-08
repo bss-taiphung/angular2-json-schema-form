@@ -1,46 +1,51 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
-import { JsonSchemaFormService } from '../../library/json-schema-form.service';
-import { getControl, inArray, isDefined } from '../../library/utilities/index';
+import {JsonSchemaFormService} from '../../library/json-schema-form.service';
+import {getControl, inArray, isDefined} from '../../library/utilities/index';
 
 @Component({
   selector: 'material-number-widget',
   template: `
-    <section [class]="options?.htmlClass">
-      <md-input #inputControl
-        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-        [attr.max]="options?.maximum"
-        [attr.min]="options?.minimum"
-        [attr.placeholder]="options?.placeholder"
-        [required]="options?.required"
-        [attr.readonly]="options?.readonly ? 'readonly' : null"
-        [attr.step]="options?.multipleOf || options?.step || 'any'"
-        [class]="options?.fieldHtmlClass"
-        [disabled]="controlDisabled"
-        [id]="'control' + layoutNode?._id"
-        [name]="controlName"
-        [placeholder]="options?.title"
-        [readonly]="options?.readonly ? 'readonly' : null"
-        [style.width]="'100%'"
-        [title]="lastValidNumber"
-        [type]="layoutNode?.type === 'range' ? 'range' : 'number'"
-        [value]="controlValue"
-        (input)="updateValue($event)"
-        (keydown)="validateInput($event)"
-        (keyup)="validateNumber($event)">
-        <span *ngIf="options?.fieldAddonLeft"
-          md-prefix>{{options?.fieldAddonLeft}}</span>
-        <span *ngIf="options?.fieldAddonRight"
-          md-suffix>{{options?.fieldAddonRight}}</span>
-        <md-hint *ngIf="options?.description && !(options?.placeholder && !formControl?.dirty)"
-          align="end">{{options?.description}}</md-hint>
-        <md-hint *ngIf="!options?.description && options?.placeholder && !formControl?.dirty"
-          align="end">{{options?.placeholder}}</md-hint>
-      </md-input>
-      {{layoutNode?.type === 'range' ? controlValue : ''}}
-    </section>`,
-    styles: [`md-input { margin-top: 6px; }`],
+      <section [class]="options?.htmlClass">
+          <md-input-container>
+              <input mdInput #inputControl
+                     [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+                     [attr.max]="options?.maximum"
+                     [attr.min]="options?.minimum"
+                     [attr.placeholder]="options?.placeholder"
+                     [required]="options?.required"
+                     [attr.readonly]="options?.readonly ? 'readonly' : null"
+                     [attr.step]="options?.multipleOf || options?.step || 'any'"
+                     [class]="options?.fieldHtmlClass"
+                     [disabled]="controlDisabled"
+                     [id]="'control' + layoutNode?._id"
+                     [name]="controlName"
+                     [placeholder]="options?.title"
+                     [readonly]="options?.readonly ? 'readonly' : null"
+                     [style.width]="'100%'"
+                     [title]="lastValidNumber"
+                     [type]="layoutNode?.type === 'range' ? 'range' : 'number'"
+                     [value]="controlValue"
+                     (input)="updateValue($event)"
+                     (keydown)="validateInput($event)"
+                     (keyup)="validateNumber($event)">
+              <span *ngIf="options?.fieldAddonLeft"
+                    md-prefix>{{options?.fieldAddonLeft}}</span>
+              <span *ngIf="options?.fieldAddonRight"
+                    md-suffix>{{options?.fieldAddonRight}}</span>
+              <md-hint *ngIf="options?.description && !(options?.placeholder && !formControl?.dirty)"
+                       align="end">{{options?.description}}
+              </md-hint>
+              <md-hint *ngIf="!options?.description && options?.placeholder && !formControl?.dirty"
+                       align="end">{{options?.placeholder}}
+              </md-hint>
+          </md-input-container>
+          {{layoutNode?.type === 'range' ? controlValue : ''}}
+      </section>`,
+  styles: [`md-input {
+      margin-top: 6px;
+  }`],
 })
 export class MaterialNumberComponent implements OnInit {
   private boundControl: boolean = false;
@@ -58,14 +63,15 @@ export class MaterialNumberComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {
+  }
 
   ngOnInit() {
     this.options = this.layoutNode.options;
     this.jsf.initializeControl(this);
-    if (this.layoutNode.dataType === 'integer') { this.allowDecimal = false; }
+    if (this.layoutNode.dataType === 'integer') {
+      this.allowDecimal = false;
+    }
   }
 
   public updateValue(event) {
@@ -74,20 +80,38 @@ export class MaterialNumberComponent implements OnInit {
 
   public validateInput(event) {
     const val = event.target.value;
-    if (/^Digit\d$/.test(event.code)) { return true; }
-    if (/^Numpad\d$/.test(event.code)) { return true; }
-    if (/^Arrow/.test(event.code)) { return true; }
-    if (inArray(event.code, ['Backspace', 'Delete', 'Enter', 'Escape', 'NumpadEnter', 'PrintScreen', 'Tab'])) { return true; }
-    if (event.ctrlKey || event.altKey || event.metaKey) { return true; }
+    if (/^Digit\d$/.test(event.code)) {
+      return true;
+    }
+    if (/^Numpad\d$/.test(event.code)) {
+      return true;
+    }
+    if (/^Arrow/.test(event.code)) {
+      return true;
+    }
+    if (inArray(event.code, ['Backspace', 'Delete', 'Enter', 'Escape', 'NumpadEnter', 'PrintScreen', 'Tab'])) {
+      return true;
+    }
+    if (event.ctrlKey || event.altKey || event.metaKey) {
+      return true;
+    }
     if (this.allowDecimal && event.key === '.' &&
-      val.indexOf('.') === -1) { return true; }
+      val.indexOf('.') === -1) {
+      return true;
+    }
     if (this.allowExponents) {
       const hasExponent = /e/i.test(val);
-      if (/^e$/i.test(event.key) && !hasExponent && val) { return true; }
+      if (/^e$/i.test(event.key) && !hasExponent && val) {
+        return true;
+      }
       if (event.key === '-') {
         const minusCount = (val.match(/\-/g) || []).length;
-        if ((this.allowNegative || hasExponent) && !minusCount) { return true; }
-        if (this.allowNegative && hasExponent && minusCount === 1) { return true; }
+        if ((this.allowNegative || hasExponent) && !minusCount) {
+          return true;
+        }
+        if (this.allowNegative && hasExponent && minusCount === 1) {
+          return true;
+        }
       }
     } else if (this.allowNegative && event.key === '-' && val.indexOf('-') === -1) {
       return true;

@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 
+
 import { JsonSchemaFormComponent } from './json-schema-form.component';
 import { OrderableDirective } from './utilities/orderable.directive';
+
 
 import { ALL_FRAMEWORKS } from '../frameworks/index';
 import { ALL_WIDGETS } from '../widgets/index';
@@ -25,18 +27,21 @@ export {
 };
 
 const ALL_COMPONENTS = [
-  ...ALL_FRAMEWORKS, ...ALL_WIDGETS, ...ALL_MATERIAL_DESIGN_WIDGETS,
+  ...ALL_FRAMEWORKS, ...ALL_WIDGETS,
+  ...ALL_MATERIAL_DESIGN_WIDGETS,
 ];
 
 @NgModule({
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, MaterialModule,
+    CommonModule, FormsModule, ReactiveFormsModule,
+    MaterialModule,
   ],
   declarations: [
     JsonSchemaFormComponent, OrderableDirective, ...ALL_COMPONENTS,
   ],
   exports: [
-    FormsModule, ReactiveFormsModule, MaterialModule,
+    FormsModule, ReactiveFormsModule,
+    MaterialModule,
     JsonSchemaFormComponent, OrderableDirective,
   ],
   entryComponents: [...ALL_COMPONENTS]

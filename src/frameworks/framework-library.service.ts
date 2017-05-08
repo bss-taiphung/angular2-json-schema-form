@@ -78,7 +78,7 @@ export class FrameworkLibraryService {
         '//fonts.googleapis.com/css?family=Roboto:300,400,500,700',
         '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
         // './node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber.css',
-        './node_modules/@angular/material/core/theming/prebuilt/indigo-pink.css',
+        './node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
       ],
     },
     'bootstrap-3': {
