@@ -64,7 +64,7 @@
     "@angular/router": "4.1.0",
     "@types/ace": "^0.0.32",
     "@types/jasmine": "^2.5.40",
-    "@types/node": "^6.0.56",
+    "@types/node": "6.0.69",
     "brace": "^0.9.1",
     "buffer": "^5.0.0",
     "canonical-path": "^0.0.2",
@@ -89,8 +89,8 @@
     "systemjs": "^0.19.41",
     "tslint": "^4.2.0",
     "typedoc": "^0.5.3",
-    "typescript": "^2.1.4",
+    "typescript": "2.3.2",
     "typings": "^2.1.0",
-    "zone.js": "^0.7.2"
+    "zone.js": "0.8.5"
   }
 }
